@@ -69,8 +69,8 @@ font-size: 11px;
 .tooltip {
   position: absolute;
   text-align: center;
-  width: 340px;
-  height: 270px;
+  width: 330px;
+  height: 260px;
   padding: 5px;
   font-size: 10px;
   background: #fff;
@@ -78,6 +78,7 @@ font-size: 11px;
   border-radius: 4px;
   pointer-events: none;
   opacity:0;
+  z-index:2000;
 }
 
 .tooltip h4 {

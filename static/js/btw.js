@@ -283,9 +283,14 @@ function tooltipShow(d) {
         .duration(200)
         .style('opacity', 1);
     tooltip_div
-        .style('left', e.pageX + 5 + 'px')
-        .style('top', e.pageY - 135 + 'px');
-
+        .style('left', e.pageX - 170 + 'px')
+        .style('top', function(d) {
+            var offset_y = e.pageY - 280;
+            if (offset_y < 0) {
+                offset_y += -offset_y;
+            }
+            return offset_y + 'px';
+        });
     d3.select('#tooltip-title').text(d.properties.name);
     renderVoteDist('#country-votes', party_votes);
 }
