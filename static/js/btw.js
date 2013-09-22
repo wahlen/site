@@ -236,7 +236,6 @@ function renderMap(de) {
         .data(topojson.feature(de, de.objects.subunits).features)
       .enter().append('path')
         .attr('class', function(d) {
-            // determine winning party
             party = getWinningPartyByState(d.properties.name);
             return 'subunit ' + party.toLowerCase();
         })

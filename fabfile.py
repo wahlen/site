@@ -35,4 +35,9 @@ def json():
 
 def deploy():
     local('logya gen')
-    local('rsync -aruvz deploy/ hm:~/www/sandbox/')
+    local('rm -rf ../wahlen.github.io/*')
+    local('mv deploy/* ../wahlen.github.io/')
+    with lcd('../wahlen.github.io/'):
+        local('git add .')
+        local('git commit -am"new deployment"')
+        local('git push origin master')
