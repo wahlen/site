@@ -276,16 +276,26 @@ function renderMap(de) {
 
 
 function tooltipShow(d) {
+    var off_y = 280,
+        off_x = 170;
     var e = d3.event;
     var party_votes = getSortedPartyVotesByState(
         map_states_votes[d.properties.name], 2);
     tooltip_div.transition()
         .duration(200)
         .style('opacity', 1);
+    // Don't let tooltip move out of top, also move left if top reached, so
+    // states are visible.
     tooltip_div
-        .style('left', e.pageX - 170 + 'px')
+        .style('left', function(d) {
+            var offset_x = e.pageX - off_x;
+            if (e.pageY - off_y < 0) {
+                offset_x -= off_x + 30;
+            }
+            return offset_x + 'px';
+        })
         .style('top', function(d) {
-            var offset_y = e.pageY - 280;
+            var offset_y = e.pageY - off_y;
             if (offset_y < 0) {
                 offset_y += -offset_y;
             }
