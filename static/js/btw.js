@@ -283,8 +283,8 @@ function tooltipShow(d) {
         .duration(200)
         .style('opacity', 1);
     tooltip_div
-        .style('left', e.pageX + 'px')
-        .style('top', e.pageY + 'px');
+        .style('left', e.pageX + 5 + 'px')
+        .style('top', e.pageY - 135 + 'px');
 
     d3.select('#tooltip-title').text(d.properties.name);
     renderVoteDist('#country-votes', party_votes);

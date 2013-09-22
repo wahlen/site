@@ -66,16 +66,28 @@ cursor:pointer;
 font-size: 11px;
 }
 
-div.tooltip {
+.tooltip {
   position: absolute;
   text-align: center;
-  width: 440px;
-  height: 375px;
-  padding: 10px;
-  font: 12px sans-serif;
+  width: 340px;
+  height: 270px;
+  padding: 5px;
+  font-size: 10px;
   background: #fff;
   border: 0px;
-  border-radius: 8px;
+  border-radius: 4px;
   pointer-events: none;
   opacity:0;
+}
+
+.tooltip h4 {
+margin: 5px 0 0;
+}
+
+.tooltip .bar-x-label {
+  font-size: 8.5px;
+}
+
+.tooltip p {
+margin-top:-12px;
 }
