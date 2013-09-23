@@ -3,6 +3,8 @@ http://www.bundeswahlleiter.de/de/bundestagswahlen/BTW_BUND_09/veroeffentlichung
 encoding: iso-8859-1
 csv separator: ;
 
+http://www.bundeswahlleiter.de/de/bundestagswahlen/BTW_BUND_13/veroeffentlichungen/ergebnisse/
+
 # Scrape
 
 http://www.bundeswahlleiter.de/de/bundestagswahlen/BTW_BUND_09/ergebnisse/bundesergebnisse/

@@ -2,7 +2,7 @@
 import pandas as pd
 
 df = pd.read_csv(
-    '../data/kerg.csv', skiprows=5, header=None, encoding='iso-8859-1', sep=';')
+    '../data/kerg_2013_pre.csv', skiprows=5, header=None, encoding='iso-8859-1', sep=';')
 
 # limit rows to state results, area code 99 is Bundesgebiet
 col_area = df[2]
@@ -14,10 +14,10 @@ col_map = {
     7: 'Wähler',                    # H
     15: 'Gültige Erststimmen',      # P
     17: 'Gültige Zweitstimmen',     # R
-    19: 'SPD Erststimmen',
-    21: 'SPD Zweitstimmen',
-    23: 'CDU Erststimmen',
-    25: 'CDU Zweitstimmen',
+    19: 'CDU Erststimmen',
+    21: 'CDU Zweitstimmen',
+    23: 'SPD Erststimmen',
+    25: 'SPD Zweitstimmen',
     27: 'FDP Erststimmen',
     29: 'FDP Zweitstimmen',
     31: 'LINKE Erststimmen',
@@ -26,12 +26,13 @@ col_map = {
     37: 'GRÜNE Zweitstimmen',
     39: 'CSU Erststimmen',
     41: 'CSU Zweitstimmen',
-    43: 'NPD Erststimmen',
-    45: 'NPD Zweitstimmen',
-#    47: 'REP Erststimmen',
-#    49: 'REP Zweitstimmen',
-    115: 'PIRATEN Erststimmen',
-    117: 'PIRATEN Zweitstimmen',
+    43: 'PIRATEN Erststimmen',
+    45: 'PIRATEN Zweitstimmen',
+    47: 'NPD Erststimmen',
+    49: 'NPD Zweitstimmen',
+    103: 'AfD Erststimmen',
+    105: 'AfD Zweitstimmen',
+
 }
 
 # vote cols
@@ -52,4 +53,4 @@ del df_votes['CSU Zweitstimmen']
 
 # save as CSV without the 1st index col
 df_votes.to_csv(
-    '../static/data/bundestagswahl_2009.csv', index=False, encoding='utf-8')
+    '../static/data/bundestagswahl_2013.csv', index=False, encoding='utf-8')

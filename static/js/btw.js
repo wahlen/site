@@ -4,11 +4,6 @@ var btw_results = null,
     tooltip_div = d3.select('#tooltip'),
     sel_vote_dist = '#vote-dist-total';
 
-queue()
-    .defer(d3.json, '/data/DEU.topo.json')
-    .defer(d3.csv, '/data/bundestagswahl_2009.csv')
-    .await(init);
-
 function init(error, de, btw) {
     // FIXME handle errors
 
