@@ -35,9 +35,10 @@ def json():
 
 def deploy():
     local('logya gen')
-    local('rm -rf ../wahlen.github.io/*')
-    local('mv deploy/* ../wahlen.github.io/')
     with lcd('../wahlen.github.io/'):
+        local('git pull origin master')
+        local('rm -rf *')
+        local('mv ../site/deploy/* .')
         local('git add .')
         local('git commit -am"new deployment"')
         local('git push origin master')
