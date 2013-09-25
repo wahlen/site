@@ -6,6 +6,25 @@ var btw_results = null,
     sel_statepopup = '#statepopup',
     hide_statepopup = false;
 
+var state_codes = {
+    'Baden-Württemberg': 'BW',
+    'Bayern': 'BY',
+    'Berlin': 'BE',
+    'Brandenburg': 'BB',
+    'Bremen': 'HB',
+    'Hamburg': 'HH',
+    'Hessen': 'HE',
+    'Mecklenburg-Vorpommern': 'MV',
+    'Niedersachsen': 'NI',
+    'Nordrhein-Westfalen': 'NW',
+    'Rheinland-Pfalz': 'RP',
+    'Saarland': 'SL',
+    'Sachsen': 'SN',
+    'Sachsen-Anhalt': 'ST',
+    'Schleswig-Holstein': 'SH',
+    'Thüringen': 'TH'
+};
+
 function init(error, de, btw) {
     // FIXME handle errors
 
@@ -15,6 +34,12 @@ function init(error, de, btw) {
     btw.map(function(item, index){
         map_states_votes[item['Bundesland']] = item;
     });
+
+    // check url hash and if necessary exclude states
+    if (document.location.hash) {
+        setExcludes(document.location.hash);
+        btw = filterRegions(btw);
+    }
 
     var vote_dist = getSortedVoteDist(btw, 2);
     renderVoteDist(sel_vote_dist, vote_dist);
@@ -28,8 +53,26 @@ function init(error, de, btw) {
 }
 
 
+function setExcludes(hash) {
+    var codes = hash.trimLeft('#').split('=')[1].split(',');
+    for (name in state_codes) {
+        var code = state_codes[name];
+        if (-1 !== codes.indexOf(code)) {
+            inactive_regions[name] = true;
+        }
+    }
+}
+
+
 function containerWidth(selector) {
     return parseInt(d3.select(selector).style('width'))
+}
+
+
+function filterRegions(btw) {
+    return btw.filter(function(item, index){
+        return inactive_regions.hasOwnProperty(item['Bundesland']) ? false : true;
+    });
 }
 
 
@@ -45,13 +88,19 @@ function toggleRegion(d, i){
         d3.select(this).style('fill', '#fff');
         inactive_regions[name] = true;
     }
-    var btw = btw_results.filter(function(item, index){
-        return inactive_regions.hasOwnProperty(item['Bundesland']) ? false : true;
-    });
+
+    var btw = filterRegions(btw_results);
     if (vote_dist = getSortedVoteDist(btw, 2))
         renderVoteDist(sel_vote_dist, vote_dist);
     else
         d3.selectAll(sel_vote_dist + ' svg').remove();
+
+    // create url hash filter for deselected states
+    var exclude = [];
+    d3.entries(inactive_regions).map(function(item, index){
+        exclude.push(state_codes[item.key]);
+    });
+    document.location.hash = 'exclude=' + exclude.join(',');
 }
 
 
@@ -124,8 +173,7 @@ function renderSeatDist() {
 function renderVoteDist(selector, vote_dist) {
     d3.selectAll(selector + ' svg').remove();
 
-    // if only total left do nothing more
-    if (1 == vote_dist.length)
+    if (0 == vote_dist.length)
         return;
 
     var width = containerWidth(selector),
@@ -242,6 +290,11 @@ function renderMap(de) {
             return 'subunit ' + party.toLowerCase();
         })
         .attr('d', path)
+        .style('fill', function(d) {
+            if (inactive_regions.hasOwnProperty(d.properties.name))
+                return '#fff';
+            return null;
+        })
         .on('click', toggleRegion)
         .on('mouseover', tooltipShow)
         .on('mouseout', tooltipHide);
