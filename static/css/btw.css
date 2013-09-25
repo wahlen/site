@@ -96,3 +96,11 @@ margin: 5px 0 0;
 .tooltip p {
 margin-top:-12px;
 }
+
+.navbar-form label {
+color:#999;
+}
+
+.navbar-form .form-group {
+margin-top:.4em;
+}

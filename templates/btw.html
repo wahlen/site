@@ -1,5 +1,15 @@
 {% extends 'map.html' %}
 
+{% block nav %}
+<form class="navbar-form navbar-right" role="statepopup">
+<div class="form-group">
+    <label class="checkbox-inline" title="Aktivieren Sie die Checkbox um das Popup mit den Landesergebnissen nicht anzuzeigen.">
+        <input type="checkbox" id="statepopup"> Landesergebnisse aus
+    </label>
+</div>
+</form>
+{% endblock %}
+
 {% block tooltip %}
 <div class="tooltip" id="tooltip">
     <h4 id="tooltip-title"></h4>

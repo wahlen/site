@@ -2,7 +2,9 @@ var btw_results = null,
     map_states_votes = {},
     inactive_regions = {},
     tooltip_div = d3.select('#tooltip'),
-    sel_vote_dist = '#vote-dist-total';
+    sel_vote_dist = '#vote-dist-total',
+    sel_statepopup = '#statepopup',
+    hide_statepopup = false;
 
 function init(error, de, btw) {
     // FIXME handle errors
@@ -18,11 +20,16 @@ function init(error, de, btw) {
     renderVoteDist(sel_vote_dist, vote_dist);
     //renderSeatDist();
     renderMap(de);
+
+    // let users hide the mouseover pop, better for touch screens
+    d3.select(sel_statepopup).on('change', function(){
+        hide_statepopup = d3.select(this).property('checked');
+    });
 }
 
 
 function containerWidth(selector) {
-  return parseInt(d3.select(selector).style('width'))
+    return parseInt(d3.select(selector).style('width'))
 }
 
 
@@ -270,6 +277,8 @@ function renderMap(de) {
 
 
 function tooltipShow(d) {
+    if (hide_statepopup) return;
+
     var off_y = 280,
         off_x = 170;
     var e = d3.event;
