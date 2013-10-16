@@ -2,7 +2,7 @@
 import pandas as pd
 
 df = pd.read_csv(
-    '../data/kerg_2013_pre.csv', skiprows=5, header=None, encoding='iso-8859-1', sep=';')
+    '../data/kerg_2013_final.csv', skiprows=5, header=None, encoding='iso-8859-1', sep=';')
 
 # limit rows to state results, area code 99 is Bundesgebiet
 col_area = df[2]
