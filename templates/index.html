@@ -1,10 +1,24 @@
 {% extends "base.html" %}
 
+{% block meta %}
+<meta name="robots" content="noindex,follow">
+{% endblock %}
+
 {% block content %}
-<h1 class="index_heading">{{ directory }}</h1>
-<ul class="index_docs">
-{% for doc in index %}
-    <li><a href="{{ base_url }}{{ doc.url }}">{{ doc.title }}</a></li>
-{% endfor %}
-</ul>
+<div class="container">
+  <div class="row">
+    <div class="col-md-12">
+        <h1 class="index_heading">{{ title }}</h1>
+        <ul class="list-unstyled index_docs">
+        {% for doc in docs %}
+            <li>
+                <h2><a href="{{ doc.url }}">{{ doc.title }}</a></h2>
+                <p><i class="fa fa-calendar"></i> {{ doc.created.strftime('%B %d, %Y') }}</p>
+                <p>{{ doc.description }}</p>
+            </li>
+        {% endfor %}
+        </ul>
+    </div>
+  </div>
+</div>
 {% endblock %}

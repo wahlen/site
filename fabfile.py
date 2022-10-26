@@ -31,14 +31,3 @@ def topojson():
 def json():
     geojson()
     topojson()
-
-
-def deploy():
-    local('logya gen')
-    with lcd('../wahlen.github.io/'):
-        local('git pull origin master')
-        local('rm -rf *')
-        local('mv ../site/deploy/* .')
-        local('git add .')
-        local('git commit -am"new deployment"')
-        local('git push origin master')
